@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Contacts</title>
+</head>
+<body>
+
+    <h1>Contact List</h1>
+
+    <a href="{% url 'add_contact' %}">Add New Contact</a>
+    <br><br>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for c in contacts %}
+        <tr>
+            <td>{{ c.first_name }}</td>
+            <td>{{ c.last_name }}</td>
+            <td>{{ c.address }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.phone }}</td>
+            <td>
+                <a href="{% url 'edit_contact' c.id %}">Edit</a> |
+                <form method="post" action="{% url 'delete_contact' c.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Delete this contact?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No contacts added yet.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

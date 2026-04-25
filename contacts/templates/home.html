@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact App</title>
+</head>
+<body>
+
+<h2>Add Contact</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Enter name" required><br><br>
+    <input type="text" name="phone" placeholder="Enter phone" required><br><br>
+    <button type="submit">Save</button>
+</form>
+
+<hr>
+
+<h2>All Contacts</h2>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Name</th>
+        <th>Phone</th>
+    </tr>
+
+    {% for c in contacts %}
+    <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.phone }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
